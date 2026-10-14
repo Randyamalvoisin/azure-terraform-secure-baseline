@@ -1,0 +1,36 @@
+# --- Terraform state: contains resource IDs, tenant/subscription IDs, sometimes secrets
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# --- Variable files with real values (keep only *.tfvars.example)
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# --- Provider cache and saved plans
+.terraform/
+*.tfplan
+tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# --- Scan output
+results.sarif
+
+# --- Local env and editor files
+.env
+.env.*
+*.pem
+*.key
+.vscode/
+.idea/
+
+# --- Unredacted screenshots: originals stay local, only redacted copies get committed
+screenshots/raw/
