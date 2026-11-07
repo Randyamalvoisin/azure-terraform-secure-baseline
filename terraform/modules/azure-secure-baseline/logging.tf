@@ -36,3 +36,33 @@ resource "azurerm_monitor_diagnostic_setting" "activity_log" {
     category = "Alert"
   }
 }
+
+# Key Vault audit events (every secret/key/cert access attempt).
+resource "azurerm_monitor_diagnostic_setting" "key_vault" {
+  name                       = "diag-${azurerm_key_vault.this.name}"
+  target_resource_id         = azurerm_key_vault.this.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+
+  enabled_log {
+    category = "AuditEvent"
+  }
+}
+
+# Blob service read/write/delete logging.
+resource "azurerm_monitor_diagnostic_setting" "storage_blob" {
+  name                       = "diag-${azurerm_storage_account.this.name}-blob"
+  target_resource_id         = "${azurerm_storage_account.this.id}/blobServices/default"
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+
+  enabled_log {
+    category = "StorageRead"
+  }
+
+  enabled_log {
+    category = "StorageWrite"
+  }
+
+  enabled_log {
+    category = "StorageDelete"
+  }
+}
